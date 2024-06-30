@@ -1,0 +1,297 @@
+[gd_scene load_steps=44 format=3 uid="uid://me5h7lds1bpn"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_28taa"]
+[ext_resource type="Texture2D" uid="uid://dnx58uh3ctfeg" path="res://stairs.jpg" id="1_htc74"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_wwa7d"]
+[ext_resource type="Shader" path="res://bw.gdshader" id="4_64t6f"]
+[ext_resource type="Texture2D" uid="uid://c1e22e0lq7pj7" path="res://splash_starty.png" id="6_b3bb7"]
+[ext_resource type="Texture2D" uid="uid://cpujjcmml8x5h" path="res://splash-endy.png" id="7_4hipj"]
+[ext_resource type="AudioStream" uid="uid://c5ht8rfb82rhf" path="res://audio/breeze.mp3" id="8_l4753"]
+[ext_resource type="AudioStream" uid="uid://ddkplcipqw1x4" path="res://audio/sad.mp3" id="9_e6c27"]
+[ext_resource type="Texture2D" uid="uid://b44e8b1u2k54w" path="res://New Piskel(3).png" id="34_7ipdd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8sfgi"]
+shader = ExtResource("4_64t6f")
+shader_parameter/blend_factor = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v8btp"]
+load_path = "res://.godot/imported/1.png-7fb4c283b55b5a1cc9e770e10ea0aad9.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dppqr"]
+load_path = "res://.godot/imported/2.png-364ef1559e3449730ebb866e72d352d6.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ibngj"]
+load_path = "res://.godot/imported/3.png-f681eedeb9864b2fa9ab7056b003ebe9.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mbvj5"]
+load_path = "res://.godot/imported/4.png-df4598a477c6704b0fedf233cd9b515e.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_58v6f"]
+load_path = "res://.godot/imported/5.png-42bfa79f5a1f94a845ca3dccab9841a6.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_is2op"]
+load_path = "res://.godot/imported/6.png-eecac64fd3d7c08d15c2459c1aec0b95.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_31yin"]
+load_path = "res://.godot/imported/7.png-602759bed112106251ff9f0649e42191.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t0oxc"]
+load_path = "res://.godot/imported/8.png-a31e8567383305418afef2ff0b713d98.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xbcch"]
+load_path = "res://.godot/imported/9.png-b3678d5743eec925a9506f092d692987.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6hc7k"]
+load_path = "res://.godot/imported/10.png-630648888555670972ef7bee871da516.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j8ft1"]
+load_path = "res://.godot/imported/11.png-7efa60eb0e4d0f44b869a3bcb8639d8a.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a7vwe"]
+load_path = "res://.godot/imported/12.png-7722c3e3b7a5b11ac9c7d070b8edc01e.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3tett"]
+load_path = "res://.godot/imported/13.png-3366c319cc9a550922d2ffc74df5d047.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tbm5w"]
+load_path = "res://.godot/imported/14.png-c362640f0d5825d0de79fc621c4f7b31.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6vys6"]
+load_path = "res://.godot/imported/15.png-70cea58d504e15cd5be58b07c811c19e.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f7d00"]
+load_path = "res://.godot/imported/16.png-547dad790046b9d99f1b00b2fef07609.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_end8r"]
+load_path = "res://.godot/imported/17.png-ed7fde67ddd0a7d96d40ea0ecd18928a.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_12n13"]
+load_path = "res://.godot/imported/18.png-d05a39118f0c2185927224a13eb28ec1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mqeje"]
+load_path = "res://.godot/imported/19.png-f7406f2c52653d3ff6b691c9438a7e94.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wx6pk"]
+load_path = "res://.godot/imported/20.png-aef4a61b864b4e1deb5f5dda1bf01e5a.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mnk5f"]
+load_path = "res://.godot/imported/21.png-e5589d8da0a530dfd1c7257a2d087cb4.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uw3vc"]
+load_path = "res://.godot/imported/22.png-5f8a35898d08f801e48fa48c1aa0ee4a.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4c8di"]
+load_path = "res://.godot/imported/23.png-323f3f37c3e4a54f0ee9bbcc17edc479.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kerl3"]
+load_path = "res://.godot/imported/24.png-84a48ea1bf9237fcd8ec6348af0eaf57.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0g132"]
+load_path = "res://.godot/imported/25.png-2e7e1509157704a7698f24e9b8694d27.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2y0m1"]
+load_path = "res://.godot/imported/26.png-aba3b9dff287d1f95ccaecda45617384.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xexo1"]
+load_path = "res://.godot/imported/27.png-2e823c803a5ff7c311110618824f7884.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7fgwk"]
+load_path = "res://.godot/imported/28.png-22e2f0ee709b5a48f3ae918863bed7fa.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xp5xf"]
+load_path = "res://.godot/imported/29.png-80a091b85b89c067518c49b9c2171724.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wq7fb"]
+load_path = "res://.godot/imported/30.png-7a61c01baa8b79ce3a78e96eaea3649c.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wpliu"]
+load_path = "res://.godot/imported/31.png-2737c76667120196bc075378e954e48e.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_17qe6"]
+load_path = "res://.godot/imported/32.png-47fdd3a056d715328114633223d4d44b.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_53xde"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_v8btp")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_dppqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_ibngj")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_mbvj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_58v6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_is2op")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_31yin")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_t0oxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_xbcch")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_6hc7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_j8ft1")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_a7vwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_3tett")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_tbm5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_6vys6")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_f7d00")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_end8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_12n13")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_mqeje")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_wx6pk")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_mnk5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_uw3vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_4c8di")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_kerl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_0g132")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_2y0m1")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_xexo1")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_7fgwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_xp5xf")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_wq7fb")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_wpliu")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_17qe6")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 25.0
+}]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(591, 325)
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_28taa")
+
+[node name="background" type="Node2D" parent="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/background"]
+modulate = Color(1, 1, 1, 0.568627)
+position = Vector2(2959, -2.00002)
+scale = Vector2(0.613665, 0.613665)
+texture = ExtResource("1_htc74")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D"]
+script = ExtResource("1_wwa7d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D/CharacterBody2D"]
+material = SubResource("ShaderMaterial_8sfgi")
+sprite_frames = SubResource("SpriteFrames_53xde")
+animation = &"climb"
+
+[node name="stairs" type="Node2D" parent="Node2D"]
+position = Vector2(-235, 295)
+scale = Vector2(3.3, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/stairs"]
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(32, -30)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(64, -60)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(96, -90)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(128, -120)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(160, -150)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(192, -180)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(224, -210)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(256, -240)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D10" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(288, -270)
+texture = ExtResource("34_7ipdd")
+
+[node name="Sprite2D11" type="Sprite2D" parent="Node2D/stairs"]
+position = Vector2(320, -300)
+texture = ExtResource("34_7ipdd")
+
+[node name="splash_start" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("6_b3bb7")
+
+[node name="splash_end" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("7_4hipj")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Node2D"]
+stream = ExtResource("8_l4753")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Node2D"]
+stream = ExtResource("9_e6c27")
+volume_db = -80.0
