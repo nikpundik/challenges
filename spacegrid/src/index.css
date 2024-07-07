@@ -1,0 +1,17 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(10, 10, 25, 0.8),
+      transparent 80%
+    ),
+    radial-gradient(circle at 70% 80%, rgba(20, 20, 40, 0.6), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(5, 5, 15, 1), transparent 90%), #000;
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+}

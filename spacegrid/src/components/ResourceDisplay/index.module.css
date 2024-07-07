@@ -1,0 +1,26 @@
+.icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: help;
+}
+
+.text {
+  width: 12px;
+  text-align: right;
+}
+
+.color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid white;
+}

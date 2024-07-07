@@ -1,0 +1,25 @@
+.planet {
+  top: 0%;
+  left: 0%;
+  width: 5%;
+  height: 5%;
+  position: absolute;
+}
+
+.planetSprite {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: cyan;
+  transform: translate(-50%, -50%);
+}
+
+.planetResource {
+}
+
+.planetSpriteSelected {
+  composes: planetSprite;
+  outline: 1px solid goldenrod;
+  outline-offset: 3px;
+}

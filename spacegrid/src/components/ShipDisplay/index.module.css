@@ -1,0 +1,30 @@
+.icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: help;
+}
+
+.text {
+  width: 12px;
+  text-align: right;
+}
+
+.symbol {
+  width: 16px;
+  height: 16px;
+  border: 1px solid white;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
