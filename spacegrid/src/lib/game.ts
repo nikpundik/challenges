@@ -82,10 +82,14 @@ const getStarType = (key: string) => {
 
 const getPlanet = (index: number, key: string): PlanetDescription => {
   const size = 1 / ((parseInt(key[index], 16) % 10) + 1) + 0.5;
-  const crystal = parseInt(key[index + 1], 16) % 10;
-  const alien = parseInt(key[index + 2], 16) % 10;
-  const metal = parseInt(key[index + 3], 16) % 10;
-  const plutonium = parseInt(key[index + 4], 16) % 10;
+  let crystal = parseInt(key[index + 1], 16) % 10;
+  if (crystal > 8) crystal = 0;
+  let alien = parseInt(key[index + 2], 16) % 10;
+  if (alien > 8) alien = 0;
+  let metal = parseInt(key[index + 3], 16) % 10;
+  if (metal > 8) metal = 0;
+  let plutonium = parseInt(key[index + 4], 16) % 10;
+  if (plutonium > 8) plutonium = 0;
   return {
     size,
     resources: {
