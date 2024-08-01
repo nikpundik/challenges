@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const useSkill = () => {
   const [label, setLabel] = useState("");
-  const [skill, setSkill] = useState(3);
-  return { label, setLabel, skill, setSkill };
+  const [skill, setSkill] = useState(0);
+  return useMemo(() => ({ label, setLabel, skill, setSkill }), [label, skill]);
 };
 
 export default useSkill;
