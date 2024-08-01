@@ -1,0 +1,4 @@
+.skill {
+  display: flex;
+  column-gap: 16px;
+}

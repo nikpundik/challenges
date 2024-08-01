@@ -5,3 +5,8 @@
   align-items: center;
   row-gap: 32px;
 }
+
+.appliedFilters {
+  display: flex;
+  column-gap: 16px;
+}
