@@ -1,3 +1,5 @@
+"use client";
+
 const Loader = () => {
   return (
     <svg
@@ -21,7 +23,7 @@ const Loader = () => {
         <stop offset="1" stopColor="#666666" stopOpacity="0"></stop>
       </radialGradient>
       <circle
-        transform-origin="center"
+        transformOrigin="center"
         fill="none"
         stroke="url(#a11)"
         strokeWidth="15"
@@ -44,7 +46,7 @@ const Loader = () => {
         ></animateTransform>
       </circle>
       <circle
-        transform-origin="center"
+        transformOrigin="center"
         fill="none"
         opacity=".2"
         stroke="#666666"

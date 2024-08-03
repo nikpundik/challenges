@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";

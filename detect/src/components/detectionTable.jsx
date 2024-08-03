@@ -1,3 +1,5 @@
+"use client";
+
 const DetectionTable = ({ snapshot, setSnapshot }) => {
   const selectedDetection =
     snapshot.selected !== null && snapshot.detection

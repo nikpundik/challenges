@@ -1,3 +1,5 @@
+"use client";
+
 const createPathData = (mask) => {
   return mask[0]
     .map((point, index) => {
@@ -14,7 +16,7 @@ const Image = ({ src, snapshot, setSnapshot }) => {
     <svg viewBox={`0 0 ${w} ${h}`}>
       <defs>
         <filter x="0" y="0" width="1" height="1" id="solid">
-          <feFlood flood-color="black" result="bg" />
+          <feFlood floodColor="black" result="bg" />
           <feMerge>
             <feMergeNode in="bg" />
             <feMergeNode in="SourceGraphic" />

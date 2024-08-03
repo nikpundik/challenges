@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
 import JSZip from "jszip";
-import { saveAs } from "file-saver";
 
 const ImportButton = ({ setImage, setImageSrc, setSnapshot }) => {
   const handleImport = async (e) => {
@@ -50,7 +51,7 @@ const ImportButton = ({ setImage, setImageSrc, setSnapshot }) => {
       <input
         id="image-import"
         type="file"
-        accept="image/*"
+        accept=".zip"
         className="hidden"
         onChange={handleImport}
       />
