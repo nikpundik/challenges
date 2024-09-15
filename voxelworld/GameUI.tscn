@@ -53,11 +53,12 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Lifes" type="Label" parent="MarginContainer/VBoxContainer/Bottom"]
+[node name="Lives" type="Label" parent="MarginContainer/VBoxContainer/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "9"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Bottom"]
 layout_mode = 2
-text = "lifes"
+text = "lives left
+"

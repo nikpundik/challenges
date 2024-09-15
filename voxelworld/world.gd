@@ -53,7 +53,7 @@ func start():
 	setup_signals()
 	setup_timers()
 	update_season()
-	update_lifes()
+	update_lives()
 	var time_end = Time.get_unix_time_from_system()
 	var time_elapsed = time_end - time_start
 	print(time_elapsed)
@@ -70,8 +70,8 @@ func end_ghosting():
 	game_ui.set_ghosted(false)
 	Engine.time_scale = 1
 
-func update_lifes():
-	game_ui.set_lifes(player.lifes)
+func update_lives():
+	game_ui.set_lives(player.lives)
 
 func update_season():
 	setup_materials()
@@ -208,7 +208,7 @@ func create_ghost():
 	ghosts.append(ghost_instance)
 
 func player_caught():
-	update_lifes()
+	update_lives()
 	clear_ghosts()
 	if player.is_dead():
 		player_dead.emit()

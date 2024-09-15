@@ -10,7 +10,7 @@ class_name Player
 @export var max_look_up = 90
 @export var max_look_down = -90
 
-var lifes: int = 3
+var lives: int = 3
 
 signal voxel_hit(voxel: Voxel, power: int)
 signal voxel_place(voxel: Voxel)
@@ -90,7 +90,7 @@ func handle_interaction():
 			voxel_hit.emit(target_voxel, hit_power)
 
 func caught():
-	lifes -= 1
+	lives -= 1
 	
 func is_dead():
-	return lifes <= 0
+	return lives <= 0

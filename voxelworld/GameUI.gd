@@ -4,7 +4,7 @@ extends Control
 @onready var season_label: Label = $MarginContainer/VBoxContainer/Top/Season
 @onready var counter_label: Label = $MarginContainer/VBoxContainer/Top/Counter
 @onready var ghosted_label: Label = $MarginContainer/VBoxContainer/Ghosted
-@onready var lifes_label: Label = $MarginContainer/VBoxContainer/Bottom/Lifes
+@onready var lives_label: Label = $MarginContainer/VBoxContainer/Bottom/Lives
 
 func set_season(season: VoxelWorld.Season, counter: int):
 	counter_label.text = "%s" % counter
@@ -21,5 +21,5 @@ func set_season(season: VoxelWorld.Season, counter: int):
 func set_ghosted(visible: bool):
 	ghosted_label.set_visibility_layer_bit(1, visible)
 
-func set_lifes(lifes: int):
-	lifes_label.text = "%s" % lifes
+func set_lives(lives: int):
+	lives_label.text = "%s" % lives
