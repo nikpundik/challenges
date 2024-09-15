@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5poxwvlmpc7i"]
+
+[ext_resource type="Script" path="res://Voxel3D.gd" id="1_pvj4q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0yqnh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vanhd"]
+albedo_color = Color(0.113725, 0.278431, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_47hgj"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+collision_layer = 2
+script = ExtResource("1_pvj4q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_0yqnh")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_vanhd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_47hgj")

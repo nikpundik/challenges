@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg4136n23lrxm"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_akv6o"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1i2wg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aoqqr"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0101, 0)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_akv6o")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
+target_position = Vector3(0, 0, -5)
+collision_mask = 2
+debug_shape_custom_color = Color(0.423529, 0.321569, 0.839216, 1)
+debug_shape_thickness = 1
+
+[node name="Character" type="MeshInstance3D" parent="Pivot"]
+mesh = SubResource("CapsuleMesh_1i2wg")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_aoqqr")

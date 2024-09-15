@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm7i8h4ev273w"]
+
+[ext_resource type="Script" path="res://Ghost.gd" id="1_xf4f4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hwmjl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lphtw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u86ea"]
+size = Vector3(0.5, 1.8, 0.5)
+
+[node name="Ghost" type="CharacterBody3D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_xf4f4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_hwmjl")
+surface_material_override/0 = SubResource("StandardMaterial3D_lphtw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_u86ea")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2p101a0xa75k"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_ygvpp"]
+[ext_resource type="PackedScene" uid="uid://bchyf3k8fwhp4" path="res://UI.tscn" id="2_8khfp"]
+[ext_resource type="PackedScene" uid="uid://dj68gmulgvff" path="res://VoxelWorld.tscn" id="2_ukcaq"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ygvpp")
+world_scene = ExtResource("2_ukcaq")
+
+[node name="UI" parent="." instance=ExtResource("2_8khfp")]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://dj68gmulgvff"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_5vlxl"]
+[ext_resource type="PackedScene" uid="uid://c5poxwvlmpc7i" path="res://Voxel.tscn" id="2_thayl"]
+[ext_resource type="PackedScene" uid="uid://byd2kgxqv3xqm" path="res://GameUI.tscn" id="3_61co6"]
+[ext_resource type="PackedScene" uid="uid://cg4136n23lrxm" path="res://Player.tscn" id="3_wun6d"]
+[ext_resource type="PackedScene" uid="uid://dm7i8h4ev273w" path="res://Ghost.tscn" id="5_qi5co"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1qiny"]
+ground_bottom_color = Color(0.596078, 0.780392, 0.670588, 1)
+
+[sub_resource type="Sky" id="Sky_gpxxi"]
+sky_material = SubResource("ProceduralSkyMaterial_1qiny")
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_0h3p6"]
+background_mode = 2
+sky = SubResource("Sky_gpxxi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dl54y"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+scale_min = 0.05
+scale_max = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_tiq7o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tm4yo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55pm0"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.905882, 0.815686, 0.988235, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_5vlxl")
+voxel_scene = ExtResource("2_thayl")
+ghost_scene = ExtResource("5_qi5co")
+
+[node name="GameUI" parent="." instance=ExtResource("3_61co6")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0h3p6")
+
+[node name="Player" parent="." instance=ExtResource("3_wun6d")]
+
+[node name="HitParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502967, 0)
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.2
+randomness = 0.13
+process_material = SubResource("ParticleProcessMaterial_dl54y")
+draw_pass_1 = SubResource("BoxMesh_tiq7o")
+
+[node name="PlaceVoxel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.883842, 0)
+layers = 256
+mesh = SubResource("BoxMesh_tm4yo")
+surface_material_override/0 = SubResource("StandardMaterial3D_55pm0")
