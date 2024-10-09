@@ -68,6 +68,47 @@ const compressVideo = (inputPath, outputPath) => {
   });
 };
 
+const downloadAndCompressVideos = async (entries) => {
+  const compressedVideos = [];
+
+  for (const entry of entries) {
+    const { videoUrl } = entry;
+
+    if (!videoUrl) {
+      console.log("No video");
+      continue;
+    }
+
+    const videoFilename = path.basename(videoUrl);
+    const downloadPath = path.join(DOWNLOAD_DIR, videoFilename);
+    const compressedPath = path.join(
+      DOWNLOAD_DIR,
+      `compressed_${videoFilename}.mp4`
+    );
+
+    // Download the video
+    if (!fs.existsSync(downloadPath)) {
+      await downloadVideo(videoUrl, downloadPath);
+      console.log(`Downloaded: ${videoUrl}`);
+    } else {
+      console.log(`Already downloaded: ${videoUrl}`);
+    }
+
+    // Compress the video for Twitter
+    await compressVideo(downloadPath, compressedPath);
+    console.log(`Compressed: ${compressedPath}`);
+
+    // Save compressed video info
+    compressedVideos.push({
+      originalUrl: videoUrl,
+      compressedVideo: compressedPath,
+    });
+
+    // Clean up original downloaded file
+    fs.unlinkSync(downloadPath);
+  }
+};
+
 // POST endpoint to handle video compression requests
 app.post("/convert-videos", async (req, res) => {
   const { entries } = req.body;
@@ -78,47 +119,11 @@ app.post("/convert-videos", async (req, res) => {
       .send({ error: "Entries should be an array of video URLs" });
   }
 
-  const compressedVideos = [];
-
   try {
-    for (const entry of entries) {
-      const { videoUrl } = entry;
+    downloadAndCompressVideos(entries);
+    console.log("Compressing videos:", entries);
 
-      if (!videoUrl) {
-        console.log("No video");
-        continue;
-      }
-
-      const videoFilename = path.basename(videoUrl);
-      const downloadPath = path.join(DOWNLOAD_DIR, videoFilename);
-      const compressedPath = path.join(
-        DOWNLOAD_DIR,
-        `compressed_${videoFilename}.mp4`
-      );
-
-      // Download the video
-      if (!fs.existsSync(downloadPath)) {
-        await downloadVideo(videoUrl, downloadPath);
-        console.log(`Downloaded: ${videoUrl}`);
-      } else {
-        console.log(`Already downloaded: ${videoUrl}`);
-      }
-
-      // Compress the video for Twitter
-      await compressVideo(downloadPath, compressedPath);
-      console.log(`Compressed: ${compressedPath}`);
-
-      // Save compressed video info
-      compressedVideos.push({
-        originalUrl: videoUrl,
-        compressedVideo: compressedPath,
-      });
-
-      // Clean up original downloaded file
-      fs.unlinkSync(downloadPath);
-    }
-
-    res.status(200).send({ compressedVideos });
+    res.status(200).send(true);
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to process videos" });

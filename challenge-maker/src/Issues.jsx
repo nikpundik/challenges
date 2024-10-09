@@ -6,7 +6,7 @@ import "highlight.js/styles/github.css";
 import { extractVideoLinks } from "./video";
 import { extractImageLinks } from "./image";
 
-function Issue({ issue, index, last, sort, setBlurb }) {
+function Issue({ issue, index, last, sort, setPosition, setBlurb }) {
   const [open, setOpen] = useState(false);
   const { githubAssets } = extractVideoLinks(issue.body);
   const { markdownImages, directImages } = extractImageLinks(issue.body);
@@ -26,6 +26,15 @@ function Issue({ issue, index, last, sort, setBlurb }) {
           </button>
         </div>
         <p className="text-sm text-gray-600">By {issue.user.login}</p>
+      </div>
+      <div className="px-4 py-3">
+        <textarea
+          placeholder="Blurb"
+          name="blurb"
+          className="w-full h-24 px-4 py-2 border-solid border-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          value={issue.blurb}
+          onChange={(event) => setBlurb(index, event.target.value)}
+        ></textarea>
       </div>
       {open && (
         <div className="px-4 flex-grow">
@@ -58,23 +67,27 @@ function Issue({ issue, index, last, sort, setBlurb }) {
           </div>
         </div>
       )}
-      <div className="px-4 py-3">
-        <textarea
-          placeholder="Blurb"
-          name="blurb"
-          className="w-full h-24 px-4 py-2 border-solid border-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          value={issue.blurb}
-          onChange={(event) => setBlurb(index, event.target.value)}
-        ></textarea>
-      </div>
       <div className="px-4 py-3 bg-gray-100 flex justify-between">
-        <button
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={() => sort(index, -1)}
-          disabled={index === 0}
-        >
-          ↑<span className="sr-only">Move up</span>
-        </button>
+        <div className="flex gap-4">
+          <button
+            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => sort(index, -1)}
+            disabled={index === 0}
+          >
+            ↑<span className="sr-only">Move up</span>
+          </button>
+          <div className="flex gap-2">
+            {[0, 1, 2].map((i) => (
+              <button
+                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => setPosition(index, i)}
+                disabled={index === i}
+              >
+                <span>{i + 1}</span>
+              </button>
+            ))}
+          </div>
+        </div>
         <button
           className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={() => sort(index, 1)}
@@ -87,21 +100,21 @@ function Issue({ issue, index, last, sort, setBlurb }) {
   );
 }
 
-export default function Issues({ issues, sort, setBlurb }) {
+export default function Issues({ issues, sort, setPosition, setBlurb }) {
   return (
     <div className="grid gap-6 grid-cols-1 w-full">
       {issues.map((issue, index) => (
-        <div className="w-full flex gap-4">
+        <div className="w-full flex gap-4" key={issue.id}>
           <div className="w-8 h-8 flex items-center justify-center bg-gray-100 border-solid border-2 rounded-full shrink-0 mt-4">
             {index + 1}
           </div>
           <div className="grow">
             <Issue
-              key={issue.id}
               issue={issue}
               index={index}
               last={index === issues.length - 1}
               sort={sort}
+              setPosition={setPosition}
               setBlurb={setBlurb}
             />
           </div>

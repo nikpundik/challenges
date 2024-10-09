@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Issues from "./Issues";
+import PrizeSplitter from "./PrizeSplitter";
 import { extractVideoLinks } from "./video";
 import { extractImageLinks } from "./image";
 import exampleIssues from "./example.json";
@@ -7,7 +8,7 @@ import exampleIssues from "./example.json";
 const token = "YOUR_ACCESS_TOKEN"; // Optional
 
 export default function Load() {
-  const [issues, setIssues] = useState([exampleIssues[1]]);
+  const [issues, setIssues] = useState(exampleIssues);
   const [owner, setOwner] = useState("Algorithm-Arena");
   const [repo, setRepo] = useState(
     "weekly-challenge-23-unconventional-randomness"
@@ -30,6 +31,14 @@ export default function Load() {
       const newIssues = [...prev];
       const item = newIssues.splice(index, 1)[0];
       newIssues.splice(index + direction, 0, item);
+      return newIssues;
+    });
+
+  const setPosition = (index, position) =>
+    setIssues((prev) => {
+      const newIssues = [...prev];
+      const element = newIssues.splice(index, 1)[0];
+      newIssues.splice(position, 0, element);
       return newIssues;
     });
 
@@ -89,7 +98,15 @@ export default function Load() {
           Convert
         </button>
       </div>
-      <Issues issues={issues} sort={sort} setBlurb={setBlurb} />
+      <div className="my-10">
+        <PrizeSplitter />
+      </div>
+      <Issues
+        issues={issues}
+        setPosition={setPosition}
+        sort={sort}
+        setBlurb={setBlurb}
+      />
     </div>
   );
 }
