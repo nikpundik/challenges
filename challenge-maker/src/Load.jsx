@@ -1,13 +1,23 @@
 import { useState } from "react";
 import Issues from "./Issues";
+import { Tweet } from "./Tweet";
 import PrizeSplitter from "./PrizeSplitter";
 import { extractVideoLinks } from "./video";
 import { extractImageLinks } from "./image";
+import { prepareTweets } from "./tweet";
 import exampleIssues from "./example.json";
 
 const token = "YOUR_ACCESS_TOKEN"; // Optional
 
+async function getTwitterName(username) {
+  const userUrl = `https://api.github.com/users/${username}`;
+  const response = await fetch(userUrl);
+  const user = await response.json();
+  return `@${user.twitter_username}` || username;
+}
+
 export default function Load() {
+  const [view, setView] = useState("evaluate");
   const [prize, setPrize] = useState({ total: 150, values: [75, 75 + 50] });
   const [issues, setIssues] = useState(exampleIssues);
   const [owner, setOwner] = useState("Algorithm-Arena");
@@ -19,16 +29,22 @@ export default function Load() {
     setPrize((prev) => ({ ...prev, values: newValues }));
   };
 
-  const load = () => {
-    fetch(`https://api.github.com/repos/${owner}/${repo}/issues`, {
-      headers: {
-        // Authorization: `token ${token}`,
-        Accept: "application/vnd.github.v3+json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setIssues(data))
-      .catch((err) => console.error(err));
+  const load = async () => {
+    const res = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/issues`,
+      {
+        headers: {
+          // Authorization: `token ${token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      }
+    );
+    const data = await res.json();
+    const newIssues = data;
+    for (const issue of newIssues) {
+      issue.twitterName = await getTwitterName(issue.user.login);
+    }
+    setIssues(newIssues);
   };
 
   const sort = (index, direction = 1) =>
@@ -103,7 +119,7 @@ export default function Load() {
         <button
           className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={load}
-          disabled
+          disabled={false}
         >
           Load
         </button>
@@ -117,13 +133,55 @@ export default function Load() {
       <div className="my-10 pl-14">
         <PrizeSplitter prize={prize} changePrizes={changePrizes} />
       </div>
-      <Issues
-        issues={issues}
-        setPosition={setPosition}
-        sort={sort}
-        setBlurb={setBlurb}
-        toggleHonorableMention={toggleHonorableMention}
-      />
+      <div class="flex space-x-2 justify-center">
+        <button
+          onClick={() => setView("evaluate")}
+          className={`py-2 px-4 ${
+            view === "evaluate"
+              ? "text-white bg-blue-500"
+              : "text-gray-500 bg-gray-200 hover:bg-gray-300"
+          } rounded-t-lg focus:outline-none`}
+        >
+          Evaluate
+        </button>
+
+        <button
+          onClick={() => setView("twitter")}
+          className={`py-2 px-4 ${
+            view === "twitter"
+              ? "text-white bg-blue-500"
+              : "text-gray-500 bg-gray-200 hover:bg-gray-300"
+          } rounded-t-lg focus:outline-none`}
+        >
+          Share
+        </button>
+        <button
+          onClick={() => setView("markdown")}
+          className={`py-2 px-4 ${
+            view === "markdown"
+              ? "text-white bg-blue-500"
+              : "text-gray-500 bg-gray-200 hover:bg-gray-300"
+          } rounded-t-lg focus:outline-none`}
+        >
+          Markdown
+        </button>
+      </div>
+      {view === "evaluate" && (
+        <Issues
+          issues={issues}
+          setPosition={setPosition}
+          sort={sort}
+          setBlurb={setBlurb}
+          toggleHonorableMention={toggleHonorableMention}
+        />
+      )}
+      {view === "twitter" && (
+        <div className="flex flex-col gap-2 w-full">
+          {prepareTweets({ issues, prize }).map((tweet, i) => (
+            <Tweet key={i} tweet={tweet} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
