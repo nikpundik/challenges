@@ -107,9 +107,7 @@ function Issue({
                 type="checkbox"
                 className="rounded bg-gray-200 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 checked={!!issue.honorableMention}
-                value={!!issue.honorableMention}
                 onChange={() => toggleHonorableMention(index)}
-                disabled={index < 3}
               />
             </div>
           )}
@@ -126,7 +124,13 @@ function Issue({
   );
 }
 
-export default function Issues({ issues, sort, setPosition, setBlurb }) {
+export default function Issues({
+  issues,
+  sort,
+  setPosition,
+  setBlurb,
+  toggleHonorableMention,
+}) {
   return (
     <div className="grid gap-6 grid-cols-1 w-full">
       {issues.map((issue, index) => (
@@ -142,6 +146,7 @@ export default function Issues({ issues, sort, setPosition, setBlurb }) {
               sort={sort}
               setPosition={setPosition}
               setBlurb={setBlurb}
+              toggleHonorableMention={toggleHonorableMention}
             />
           </div>
         </div>

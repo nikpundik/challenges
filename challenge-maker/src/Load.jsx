@@ -50,14 +50,17 @@ export default function Load() {
   const setBlurb = (index, blurb) =>
     setIssues((prev) => {
       const newIssues = [...prev];
-      newIssues[index].blurb = blurb;
+      newIssues[index] = { ...newIssues[index], blurb };
       return newIssues;
     });
 
   const toggleHonorableMention = (index) => {
     setIssues((prev) => {
       const newIssues = [...prev];
-      newIssues[index].honorableMention = !newIssues[index].honorableMention;
+      newIssues[index] = {
+        ...newIssues[index],
+        honorableMention: !newIssues[index].honorableMention,
+      };
       return newIssues;
     });
   };
