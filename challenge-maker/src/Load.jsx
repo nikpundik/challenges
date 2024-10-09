@@ -8,11 +8,16 @@ import exampleIssues from "./example.json";
 const token = "YOUR_ACCESS_TOKEN"; // Optional
 
 export default function Load() {
+  const [prize, setPrize] = useState({ total: 150, values: [75, 75 + 50] });
   const [issues, setIssues] = useState(exampleIssues);
   const [owner, setOwner] = useState("Algorithm-Arena");
   const [repo, setRepo] = useState(
     "weekly-challenge-23-unconventional-randomness"
   );
+
+  const changePrizes = (newValues) => {
+    setPrize((prev) => ({ ...prev, values: newValues }));
+  };
 
   const load = () => {
     fetch(`https://api.github.com/repos/${owner}/${repo}/issues`, {
@@ -49,6 +54,14 @@ export default function Load() {
       return newIssues;
     });
 
+  const toggleHonorableMention = (index) => {
+    setIssues((prev) => {
+      const newIssues = [...prev];
+      newIssues[index].honorableMention = !newIssues[index].honorableMention;
+      return newIssues;
+    });
+  };
+
   const convert = () => {
     const entries = issues.map((issue) => {
       const { body } = issue;
@@ -62,7 +75,7 @@ export default function Load() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ entries }),
+      body: JSON.stringify({ entries, owner, repo }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -98,14 +111,15 @@ export default function Load() {
           Convert
         </button>
       </div>
-      <div className="my-10">
-        <PrizeSplitter />
+      <div className="my-10 pl-14">
+        <PrizeSplitter prize={prize} changePrizes={changePrizes} />
       </div>
       <Issues
         issues={issues}
         setPosition={setPosition}
         sort={sort}
         setBlurb={setBlurb}
+        toggleHonorableMention={toggleHonorableMention}
       />
     </div>
   );

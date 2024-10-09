@@ -6,7 +6,15 @@ import "highlight.js/styles/github.css";
 import { extractVideoLinks } from "./video";
 import { extractImageLinks } from "./image";
 
-function Issue({ issue, index, last, sort, setPosition, setBlurb }) {
+function Issue({
+  issue,
+  index,
+  last,
+  sort,
+  setPosition,
+  setBlurb,
+  toggleHonorableMention,
+}) {
   const [open, setOpen] = useState(false);
   const { githubAssets } = extractVideoLinks(issue.body);
   const { markdownImages, directImages } = extractImageLinks(issue.body);
@@ -57,7 +65,7 @@ function Issue({ issue, index, last, sort, setPosition, setBlurb }) {
               )}
             </div>
           </div>
-          <div className="mt-4 prose sm:prose-md">
+          <div className="my-4 prose sm:prose-md">
             <Markdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
@@ -79,6 +87,7 @@ function Issue({ issue, index, last, sort, setPosition, setBlurb }) {
           <div className="flex gap-2">
             {[0, 1, 2].map((i) => (
               <button
+                key={i}
                 className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => setPosition(index, i)}
                 disabled={index === i}
@@ -88,13 +97,30 @@ function Issue({ issue, index, last, sort, setPosition, setBlurb }) {
             ))}
           </div>
         </div>
-        <button
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={() => sort(index, 1)}
-          disabled={last}
-        >
-          ↓<span className="sr-only">Move down</span>
-        </button>
+        <div className="flex gap-4">
+          {index >= 3 && (
+            <div className="flex items-center">
+              <span className="mr-2 text-sm text-gray-700">
+                Honorable Mention
+              </span>
+              <input
+                type="checkbox"
+                className="rounded bg-gray-200 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                checked={!!issue.honorableMention}
+                value={!!issue.honorableMention}
+                onChange={() => toggleHonorableMention(index)}
+                disabled={index < 3}
+              />
+            </div>
+          )}
+          <button
+            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => sort(index, 1)}
+            disabled={last}
+          >
+            ↓<span className="sr-only">Move down</span>
+          </button>
+        </div>
       </div>
     </div>
   );

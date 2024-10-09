@@ -68,7 +68,7 @@ const compressVideo = (inputPath, outputPath) => {
   });
 };
 
-const downloadAndCompressVideos = async (entries) => {
+const downloadAndCompressVideos = async (entries, owner, repo) => {
   const compressedVideos = [];
 
   for (const entry of entries) {
@@ -80,7 +80,11 @@ const downloadAndCompressVideos = async (entries) => {
     }
 
     const videoFilename = path.basename(videoUrl);
-    const downloadPath = path.join(DOWNLOAD_DIR, videoFilename);
+    const workPath = path.join(DOWNLOAD_DIR, owner, repo);
+    if (!fs.existsSync(workPath)) {
+      fs.mkdirSync(workPath, { recursive: true });
+    }
+    const downloadPath = path.join(workPath, videoFilename);
     const compressedPath = path.join(
       DOWNLOAD_DIR,
       `compressed_${videoFilename}.mp4`
@@ -111,7 +115,7 @@ const downloadAndCompressVideos = async (entries) => {
 
 // POST endpoint to handle video compression requests
 app.post("/convert-videos", async (req, res) => {
-  const { entries } = req.body;
+  const { entries, owner, repo } = req.body;
 
   if (!entries || !Array.isArray(entries)) {
     return res
@@ -120,7 +124,7 @@ app.post("/convert-videos", async (req, res) => {
   }
 
   try {
-    downloadAndCompressVideos(entries);
+    downloadAndCompressVideos(entries, owner, repo);
     console.log("Compressing videos:", entries);
 
     res.status(200).send(true);
