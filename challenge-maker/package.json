@@ -19,7 +19,8 @@
     "react-markdown": "^9.0.1",
     "react-range": "^1.10.0",
     "rehype-highlight": "^7.0.0",
-    "remark-gfm": "^4.0.0"
+    "remark-gfm": "^4.0.0",
+    "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

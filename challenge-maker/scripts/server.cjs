@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const fs = require("fs");
+const ytdl = require("ytdl-core");
 const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
 const cors = require("cors");
@@ -38,6 +39,23 @@ const downloadVideo = async (url, dest) => {
   });
 };
 
+const downloadYoutubeVideo = async (url, dest) => {
+  return new Promise((resolve, reject) => {
+    const writer = fs.createWriteStream(dest);
+    ytdl(url)
+      .pipe(writer)
+      .on("finish", resolve)
+      .on("error", reject)
+      .on("progress", (downloaded, total) => {
+        console.log(
+          `Downloaded ${downloaded} of ${total} (${
+            (downloaded / total) * 100
+          }%)`
+        );
+      });
+  });
+};
+
 const outputOptionsV4 = [
   "-c:v libx264", // H.264 codec
   "-c:a aac", // AAC audio codec
@@ -71,7 +89,10 @@ const compressVideo = (inputPath, outputPath) => {
 const downloadAndCompressVideos = async (entries, owner, repo) => {
   const compressedVideos = [];
 
+  let i = 0;
+
   for (const entry of entries) {
+    i += 1;
     const { videoUrl } = entry;
 
     if (!videoUrl) {
@@ -86,7 +107,7 @@ const downloadAndCompressVideos = async (entries, owner, repo) => {
     }
     const downloadPath = path.join(workPath, videoFilename);
     const compressedPath = path.join(
-      DOWNLOAD_DIR,
+      workPath,
       `compressed_${videoFilename}.mp4`
     );
 
@@ -100,7 +121,7 @@ const downloadAndCompressVideos = async (entries, owner, repo) => {
 
     // Compress the video for Twitter
     await compressVideo(downloadPath, compressedPath);
-    console.log(`Compressed: ${compressedPath}`);
+    console.log(`Compressed: ${compressedPath} | ${i} of ${entries.length}`);
 
     // Save compressed video info
     compressedVideos.push({

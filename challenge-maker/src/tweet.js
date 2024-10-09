@@ -1,4 +1,3 @@
-// { total: 150, values: [75, 75 + 50] }
 const getPosition = (index, prize) => {
   if (index === 0) {
     return `The winner for ${prize.values[0]}$ is`;

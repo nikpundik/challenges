@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Issues from "./Issues";
 import { Tweet } from "./Tweet";
+import { Markdown } from "./Markdown";
 import PrizeSplitter from "./PrizeSplitter";
 import { extractVideoLinks } from "./video";
 import { extractImageLinks } from "./image";
@@ -19,7 +20,7 @@ async function getTwitterName(username) {
 export default function Load() {
   const [view, setView] = useState("evaluate");
   const [prize, setPrize] = useState({ total: 150, values: [75, 75 + 50] });
-  const [issues, setIssues] = useState(exampleIssues);
+  const [issues, setIssues] = useState([]);
   const [owner, setOwner] = useState("Algorithm-Arena");
   const [repo, setRepo] = useState(
     "weekly-challenge-23-unconventional-randomness"
@@ -85,9 +86,10 @@ export default function Load() {
     const entries = issues.map((issue) => {
       const { body } = issue;
       const { markdownImages, directImages } = extractImageLinks(body);
-      const { githubAssets } = extractVideoLinks(body);
+      const { githubAssets, youtubeLinks } = extractVideoLinks(body);
       const videoUrl = githubAssets[0];
-      return { videoUrl, markdownImages, directImages };
+      const youtubeUrl = youtubeLinks[0];
+      return { videoUrl, youtubeUrl, markdownImages, directImages };
     });
     fetch("http://localhost:3000/convert-videos", {
       method: "POST",
@@ -126,6 +128,7 @@ export default function Load() {
         <button
           className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={convert}
+          disabled={issues.length === 0}
         >
           Convert
         </button>
@@ -133,53 +136,58 @@ export default function Load() {
       <div className="my-10 pl-14">
         <PrizeSplitter prize={prize} changePrizes={changePrizes} />
       </div>
-      <div class="flex space-x-2 justify-center">
-        <button
-          onClick={() => setView("evaluate")}
-          className={`py-2 px-4 ${
-            view === "evaluate"
-              ? "text-white bg-blue-500"
-              : "text-gray-500 bg-gray-200 hover:bg-gray-300"
-          } rounded-t-lg focus:outline-none`}
-        >
-          Evaluate
-        </button>
+      {issues.length > 0 && (
+        <div>
+          <div class="flex space-x-2 justify-center">
+            <button
+              onClick={() => setView("evaluate")}
+              className={`py-2 px-4 ${
+                view === "evaluate"
+                  ? "text-white bg-blue-500"
+                  : "text-gray-500 bg-gray-200 hover:bg-gray-300"
+              } rounded-t-lg focus:outline-none`}
+            >
+              Evaluate
+            </button>
 
-        <button
-          onClick={() => setView("twitter")}
-          className={`py-2 px-4 ${
-            view === "twitter"
-              ? "text-white bg-blue-500"
-              : "text-gray-500 bg-gray-200 hover:bg-gray-300"
-          } rounded-t-lg focus:outline-none`}
-        >
-          Share
-        </button>
-        <button
-          onClick={() => setView("markdown")}
-          className={`py-2 px-4 ${
-            view === "markdown"
-              ? "text-white bg-blue-500"
-              : "text-gray-500 bg-gray-200 hover:bg-gray-300"
-          } rounded-t-lg focus:outline-none`}
-        >
-          Markdown
-        </button>
-      </div>
-      {view === "evaluate" && (
-        <Issues
-          issues={issues}
-          setPosition={setPosition}
-          sort={sort}
-          setBlurb={setBlurb}
-          toggleHonorableMention={toggleHonorableMention}
-        />
-      )}
-      {view === "twitter" && (
-        <div className="flex flex-col gap-2 w-full">
-          {prepareTweets({ issues, prize }).map((tweet, i) => (
-            <Tweet key={i} tweet={tweet} />
-          ))}
+            <button
+              onClick={() => setView("twitter")}
+              className={`py-2 px-4 ${
+                view === "twitter"
+                  ? "text-white bg-blue-500"
+                  : "text-gray-500 bg-gray-200 hover:bg-gray-300"
+              } rounded-t-lg focus:outline-none`}
+            >
+              Share
+            </button>
+            <button
+              onClick={() => setView("markdown")}
+              className={`py-2 px-4 ${
+                view === "markdown"
+                  ? "text-white bg-blue-500"
+                  : "text-gray-500 bg-gray-200 hover:bg-gray-300"
+              } rounded-t-lg focus:outline-none`}
+            >
+              Markdown
+            </button>
+          </div>
+          {view === "evaluate" && (
+            <Issues
+              issues={issues}
+              setPosition={setPosition}
+              sort={sort}
+              setBlurb={setBlurb}
+              toggleHonorableMention={toggleHonorableMention}
+            />
+          )}
+          {view === "twitter" && (
+            <div className="flex flex-col gap-2 w-full">
+              {prepareTweets({ issues, prize }).map((tweet, i) => (
+                <Tweet key={i} tweet={tweet} />
+              ))}
+            </div>
+          )}
+          {view === "markdown" && <Markdown issues={issues} prize={prize} />}
         </div>
       )}
     </div>

@@ -16,7 +16,7 @@ function Issue({
   toggleHonorableMention,
 }) {
   const [open, setOpen] = useState(false);
-  const { githubAssets } = extractVideoLinks(issue.body);
+  const { githubAssets, youtubeLinks } = extractVideoLinks(issue.body);
   const { markdownImages, directImages } = extractImageLinks(issue.body);
   const image = markdownImages[0] || directImages[0];
   return (
